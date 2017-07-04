@@ -1,0 +1,8 @@
+<ion-view view-title="Tienda">
+  <ion-content>
+    <img src="img/store-1-banner.jpg" class="banner">
+    <div class="list">
+      <a href="#/tab/store/{{category.id}}" class="item item-text-wrap text-left" ng-repeat="category in categories"><span class="energized">{{category.firstWord}}</span> <span class="balanced">{{category.words}}</span></a>
+    </div>
+  </ion-content>
+</ion-view>

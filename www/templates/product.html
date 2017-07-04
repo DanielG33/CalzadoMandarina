@@ -1,0 +1,49 @@
+<ion-view view-title="Tienda">
+  <ion-content style="background: #015e3d">
+
+    <div class="list card">
+
+
+      <div class="item item-image">
+        <img src="img/products/{{product.img}}" ng-click="openModal(product)">
+      <span style="color: #f2f2f2; background: rgba(1, 94, 61,.7); padding: 3px; border-radius: 3px; position: absolute; top: 10px; right: 10px;">{{product.price | currency}}</span>
+      </div>
+
+      <a class="item item-button-left item-button-right text-center" href="#" style="position: relative; overflow: visible;">
+        <button class="button button-positive button-round ion-ios-cart" style="position: absolute; top: -50%"></button>
+        <span class="energized">{{product.name}}</span>
+        <button class="button button-assertive button-round ion-ios-heart-outline" style="position: absolute; top: -50%"></button>
+      </a>
+      
+      <div class="item item-text-wrap" ng-if="product.description">
+        <p>{{product.description}}</p>
+      </div>
+
+      <div class="item item-divider">
+        <span class="energized">Características del producto</span>
+      </div>
+
+      <div class="item item-text-wrap">
+        <p ng-repeat="x in product.features">{{x}}</p>
+      </div>
+
+    </div>
+
+    <script id="templates/modal.html" type="text/ng-template">
+      <ion-modal-view style="background: rgba(0, 0, 0, .6);">
+        <ion-header-bar class="bar bar-header bar-balanced energized">
+          <h1 class="title">{{modal.productName}}</h1>
+          <button class="button button-clear button-assertive" ng-click="modal.hide()">&times;</button>
+        </ion-header-bar>
+        <ion-content class="padding" scroll="false">
+          
+          <ion-scroll zooming="true" direction="xy" delegate-handle="zoom-pane" class="zoom-pane" min-zoom="1" scrollbar-x="false" scrollbar-y="false" style="padding: 0px;">   
+          <img ng-src="img/products/{{modal.imgUrl}}" style="width: 100vw; margin: 0px; padding: 0px">
+        </ion-scroll>
+          
+        </ion-content>
+      </ion-modal-view>
+    </script>
+
+  </ion-content>
+</ion-view>
