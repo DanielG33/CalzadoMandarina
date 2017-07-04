@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.calzadomandarina545749" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>CalzadoMandarina</name>
+  <name>Calzado Mandarina</name>
   <description>An Apps Tp Go app.</description>
   <author email="mandarinacalzado.online@gmail.com" href="calzadomandarina.com">Apps To Go</author>
   <content src="index.html"/>
