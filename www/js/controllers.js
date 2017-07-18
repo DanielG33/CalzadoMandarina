@@ -26,9 +26,9 @@ angular.module('starter.controllers', [])
   };
 
   // $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/products_categories.php', config).then(function(res){
-  $http.get('http://localhost/atg_calzadoMandarina/json/products_categories.php').then(function(res){
+  $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/products_categories.php').then(function(res){
     $scope.categories = res.data;
-    console.log(res.data);
+    // console.log(res.data);
   })
 })
 
@@ -36,11 +36,10 @@ angular.module('starter.controllers', [])
 
   var cat = $stateParams.cat
 
-  $http.get('http://localhost/atg_calzadoMandarina/json/products.php?cat='+cat).then(function(res){
+  $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/products.php?cat='+cat).then(function(res){
     $scope.products = res.data;
     console.log(res.data);
   })
-
 })
 
 .controller('productCtrl', function($scope, $stateParams, $http, $ionicModal) {
@@ -49,7 +48,7 @@ angular.module('starter.controllers', [])
 
   $scope.modal = {};
 
-  $http.get('http://localhost/atg_calzadoMandarina/json/product.php?id='+id).then(function(res){
+  $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/product.php?id='+id).then(function(res){
     $scope.product = res.data;
     console.log(res.data);
   })
@@ -65,13 +64,100 @@ angular.module('starter.controllers', [])
     $scope.modal.imgUrl = product.img;
     $scope.modal.productName = product.name;
   }
-
 })
 
 .controller('contactCtrl', function($scope) {
   $scope.openBrowser = function(link){
     window.open(link,'_blank','location=yes'); 
   };
+})
+
+.controller('userCtrl', function($scope, $http, $ionicModal, $timeout) {
+
+  $scope.modal = {};
+  $scope.data = {};
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+
+  $scope.openBrowser = function(link){
+    window.open(link,'_blank','location=yes'); 
+  }
+
+  $scope.login = function(){
+
+    var config = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+    var data = $scope.data;
+
+    $http.post('https://homodont-route.000webhostapp.com/calzadomandarin/php/login_customer.php',data, config).then(function(res){
+      console.log(res.data);
+      if(res.data.status == 'in'){
+        window.localStorage.setItem('mandarina_user', res.data.id);
+        $scope.modal.hide();
+      }else{
+        $scope.data.error = res.data.error
+      }
+    })
+  }
+  
+  $scope.openModal = function() {
+    $scope.modal.show()
+  }
+
+  $scope.$on('$ionicView.enter', function(e) {
+    var user = window.localStorage.getItem('mandarina_user');
+    $timeout(function(){
+      if(!user){
+        $scope.openModal();
+      }
+    })
+  });
+})
+
+.controller('profileCtrl', function($scope, $http, $ionicModal, $timeout) {
+
+  $scope.modal = {};
+  $scope.data = {};
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+
+  $scope.init = function(){
+    var user = window.localStorage.getItem('mandarina_user');
+    $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/customer.php?id='+user).then(function(res){
+      $scope.customer = res.data;
+      console.log(res.data);
+    })
+  }
+  
+  $scope.openModal = function() {
+    $scope.modal.show()
+  }
+
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.init();
+  });
+})
+
+.controller('favsCtrl', function($scope, $stateParams, $http) {
+
+  $scope.init = function(){
+    var user = window.localStorage.getItem('mandarina_user');
+    $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/favs.php?user='+user).then(function(res){
+      $scope.favs = res.data;
+      console.log(res.data);
+    })
+  }
+
+  $scope.init();
 })
 
 .controller('mapCtrl', function($scope) {
@@ -84,4 +170,10 @@ angular.module('starter.controllers', [])
       position: uluru,
       map: map
     });
-}); 
+})
+
+.controller('tabsCtrl', function($scope) {
+  $scope.openBrowser = function(link){
+    window.open(link,'_blank','location=yes'); 
+  };
+})

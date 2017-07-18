@@ -7,6 +7,10 @@
   font-family: 'SourceSansPro';
 }
 
+ion-content{
+  margin-bottom: 500px;
+}
+
 .card .title{
 	text-align: center;
 	font-weight: bolder;
@@ -161,7 +165,7 @@ button.button-round{
   border-radius: 5px;
 }
 
-i.icon::before,
+ion-tab i.icon::before,
 .tab-title{
   color: #fff;
 }
@@ -169,4 +173,20 @@ i.icon::before,
 .tab-item-active i.icon::before,
 .tab-item-active .tab-title{
   color: #ff8400;
+}
+
+.modal-login{
+  background: rgba(0, 0, 0, .95);
+}
+
+.modal-login span{
+  color: #ff8400;
+}
+
+.modal-login input{
+  color: #fff;
+}
+
+.transparent{
+  background: transparent;
 }

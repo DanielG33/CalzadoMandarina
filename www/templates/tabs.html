@@ -9,8 +9,8 @@ navigation history that also transitions its views in and out.
     <button class="button button-icon" ng-click="openBrowser('http://www.instagram.com')"><i class="icon ion-social-instagram"></i><span style="font-size: 10px; color: #ff901a">@mandarinacalzado</span></button>
   </div> -->
   <div class="button-bar social-bar">
-    <button class="button button-icon icon-left"><i class="icon ion-social-facebook"></i><span style="font-size: 10px;">/mandarinacalzado</span></button>
-    <button class="button button-icon icon-left"><i class="icon ion-social-instagram-outline"></i><span style="font-size: 10px;">@mandarinacalzado</span></button>
+    <button class="button button-icon icon-left" ng-click="openBrowser('http://www.facebook.com')"><i class="icon ion-social-facebook"></i><span style="font-size: 10px;">/mandarinacalzado</span></button>
+    <button class="button button-icon icon-left" ng-click="openBrowser('http://www.instagram.com')"><i class="icon ion-social-instagram-outline"></i><span style="font-size: 10px;">@mandarinacalzado</span></button>
   </div>
 </div>
     
@@ -29,6 +29,11 @@ navigation history that also transitions its views in and out.
   <!-- Contacto Tab -->
   <ion-tab title="Contacto" icon-off="ion-ios-telephone-outline" icon-on="ion-ios-telephone" href="#/tab/contact">
     <ion-nav-view name="tab-contact"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Profile Tab -->
+  <ion-tab title="Perfil" icon-off="ion-ios-person-outline" icon-on="ion-ios-person" href="#/tab/user">
+    <ion-nav-view name="tab-user"></ion-nav-view>
   </ion-tab>
 
 </ion-tabs>

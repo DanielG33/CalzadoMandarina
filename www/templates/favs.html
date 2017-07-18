@@ -1,0 +1,15 @@
+<ion-view view-title="Tienda">
+  <ion-content>
+
+    <div class="list">
+      <!-- <a class="item item-avatar" href="#/tab/store/product/{{x.id}}" ng-repeat="x in favs"> -->
+      <div class="item item-avatar" ng-repeat="x in favs">
+        <img src="img/products/{{x.img}}">
+        <span class="item-note">{{x.price | currency}}</span>
+        <h2 class="balanced">{{x.name}}</h2>
+        <p>{{x.description}}</p>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,55 @@
+<ion-view view-title="Perfil">
+  <ion-content>
+
+    <div class="list">
+      <a class="item item-icon-left" href="#/tab/user/profile">
+        <i class="icon ion-ios-person energized"></i>
+        <span class="balanced">Mis datos</span>
+      </a>
+
+      <a class="item item-icon-left" href="#/tab/user/favs">
+        <i class="icon ion-heart energized"></i>
+        <span class="balanced">Favoritos</span>
+      </a>
+
+      <a ng-click="openBrowser('http://calzadomandarina.com/')" class="item item-icon-left">
+        <i class="icon ion-log-out energized"></i>
+        <span class="balanced">Cerrar sesión</span>
+      </a>
+    </div>
+
+    <script id="templates/modal.html" type="text/ng-template">
+      <ion-modal-view class="modal modal-login">
+        <ion-header-bar class="bar bar-header bar-balanced">
+          <h1 class="title">Iniciar sesión</h1>
+          <!-- <button class="button button-clear" ng-click="modal.hide()">&times;</button> -->
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Usuario</span>
+              <input type="text" placeholder="Usuario" ng-model="data.user">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Contraseña</span>
+              <input type="password" placeholder="Contraseña" ng-model="data.pass">
+            </label>
+          </div>
+          <div class="padding">
+            <button class="button button-energized" ng-click="login()">Iniciar sesión</button>
+            <button class="button button-energized">Olvidé mi contraseña</button>
+          </div>
+          <div class="padding">
+            <button class="button button-balanced">Registrar</button>
+          </div>
+          <div class="card" ng-if="data.error">
+            <div class="item item-text-wrap">
+              {{data.error}}
+            </div>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+
+  </ion-content>
+</ion-view>
