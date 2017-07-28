@@ -190,3 +190,8 @@ ion-tab i.icon::before,
 .transparent{
   background: transparent;
 }
+
+ion-option-button a{
+  color: #fff;
+  text-decoration: none;
+}

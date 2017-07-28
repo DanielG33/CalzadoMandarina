@@ -1,15 +1,29 @@
-<ion-view view-title="Tienda">
+<ion-view view-title="Favoritos">
   <ion-content>
 
-    <div class="list">
-      <!-- <a class="item item-avatar" href="#/tab/store/product/{{x.id}}" ng-repeat="x in favs"> -->
-      <div class="item item-avatar" ng-repeat="x in favs">
+
+    <ion-list can-swipe="listCanSwipe">
+      <ion-item ng-repeat="x in favs" class="item-avatar">
+
         <img src="img/products/{{x.img}}">
+        <h2>{{x.name}}</h2>
+        <p>{{x.description}}</p>
+        <ion-option-button class="button-assertive" ng-click="delete(x)">
+          <i class="icon ion-close"></i>
+        </ion-option-button>
+        <ion-option-button class="button-positive" ng-click="show(x.id)">
+          ver
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+
+    <!-- <div class="list">
+      <div class="item item-avatar" ng-repeat="x in favs">
         <span class="item-note">{{x.price | currency}}</span>
         <h2 class="balanced">{{x.name}}</h2>
         <p>{{x.description}}</p>
       </div>
-    </div>
+    </div> -->
 
   </ion-content>
 </ion-view>

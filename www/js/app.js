@@ -169,6 +169,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
+  .state('tab.fav', {
+      url: '/user/fav/:id',
+      views: {
+        'tab-user': {
+          templateUrl: 'templates/fav.html',
+          controller: 'productCtrl'
+        }
+      }
+    })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/store');
 
