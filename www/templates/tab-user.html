@@ -1,7 +1,7 @@
 <ion-view view-title="Perfil">
   <ion-content>
 
-    <div class="list">
+    <div class="list" ng-if="user">
       <a class="item item-icon-left" href="#/tab/user/profile">
         <i class="icon ion-ios-person energized"></i>
         <span class="balanced">Mis datos</span>
@@ -12,17 +12,28 @@
         <span class="balanced">Favoritos</span>
       </a>
 
-      <a ng-click="openBrowser('http://calzadomandarina.com/')" class="item item-icon-left">
+      <a ng-click="logout()" class="item item-icon-left">
         <i class="icon ion-log-out energized"></i>
         <span class="balanced">Cerrar sesión</span>
       </a>
+    </div>
+
+    <div ng-if="!user">
+      <div class="card">
+        <div class="item item-text-wrap">
+          <h2>Por favor, inicie sesión para continuar</h2>
+        </div>
+      </div>
+
+      <button class="button button-full button-energized" ng-click="modal.show()">Iniciar sesión</button>
+
     </div>
 
     <script id="templates/modal.html" type="text/ng-template">
       <ion-modal-view class="modal modal-login">
         <ion-header-bar class="bar bar-header bar-balanced">
           <h1 class="title">Iniciar sesión</h1>
-          <!-- <button class="button button-clear" ng-click="modal.hide()">&times;</button> -->
+          <button class="button button-clear" ng-click="modal.hide()">&times;</button>
         </ion-header-bar>
         <ion-content>
           <div class="list">

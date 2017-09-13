@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
   };
 
   // $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/products_categories.php', config).then(function(res){
-  $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/products_categories.php').then(function(res){
+  $http.get('http://localhost/atg_calzadoMandarina/json/products_categories.php').then(function(res){
     $scope.categories = res.data;
     // console.log(res.data);
   })
@@ -36,7 +36,7 @@ angular.module('starter.controllers', [])
 
   var cat = $stateParams.cat
 
-  $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/products.php?cat='+cat).then(function(res){
+  $http.get('http://localhost/atg_calzadoMandarina/json/products.php?cat='+cat).then(function(res){
     $scope.products = res.data;
     console.log(res.data);
   })
@@ -44,18 +44,22 @@ angular.module('starter.controllers', [])
 
 .controller('productCtrl', function($scope, $stateParams, $http, $ionicModal) {
 
-  $scope.testmethod = function() {
-        onDeviceReadyTest();
-    }
+  $scope.testmethod = function(){
+    onDeviceReadyTest();
+  }
   
   var user = localStorage.getItem('mandarina_user');
   var id = $stateParams.id;
+  $scope.fav;
 
   $scope.modal = {};
 
-  $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/product.php?id='+id+'&user='+user).then(function(res){
+  $http.get('http://localhost/atg_calzadoMandarina/json/favs.php?user='+user+'&id='+id).then(function(res){
+    $scope.fav = res.data;
+  })
+
+  $http.get('http://localhost/atg_calzadoMandarina/json/product.php?id='+id+'&user='+user).then(function(res){
     $scope.product = res.data;
-    console.log(res.data);
   })
 
   $ionicModal.fromTemplateUrl('templates/modal.html', {
@@ -69,6 +73,16 @@ angular.module('starter.controllers', [])
     $scope.modal.imgUrl = product.img;
     $scope.modal.productName = product.name;
   }
+
+  $scope.favs_add = function(){
+    $http.get('http://localhost/atg_calzadoMandarina/php/favs_add.php?id='+id+'&user='+user).then(function(res){
+      console.log(res.data);
+      $http.get('http://localhost/atg_calzadoMandarina/json/favs.php?user='+user+'&id='+id).then(function(res){
+        $scope.fav = res.data;
+      })
+    })
+  }
+
 })
 
 .controller('contactCtrl', function($scope) {
@@ -81,6 +95,7 @@ angular.module('starter.controllers', [])
 
   $scope.modal = {};
   $scope.data = {};
+  $scope.user;
 
   $ionicModal.fromTemplateUrl('templates/modal.html', {
     scope: $scope
@@ -98,26 +113,34 @@ angular.module('starter.controllers', [])
     var config = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
     var data = $scope.data;
 
-    $http.post('https://homodont-route.000webhostapp.com/calzadomandarin/php/login_customer.php',data, config).then(function(res){
+    $http.post('http://localhost/atg_calzadoMandarina/php/login_customer.php',data, config).then(function(res){
       console.log(res.data);
       if(res.data.status == 'in'){
         window.localStorage.setItem('mandarina_user', res.data.id);
+        $scope.user = res.data.id;
         $scope.modal.hide();
+        $scope.data.user = null;
+        $scope.data.pass = null;
       }else{
         $scope.data.error = res.data.error
       }
     })
   }
-  
-  $scope.openModal = function() {
-    $scope.modal.show()
+
+  $scope.logout = function(){
+    window.localStorage.removeItem('mandarina_user');
+    $scope.user = null;
+    $scope.modal.show();
   }
 
   $scope.$on('$ionicView.enter', function(e) {
     var user = window.localStorage.getItem('mandarina_user');
     $timeout(function(){
       if(!user){
-        $scope.openModal();
+        $scope.modal.show();
+        $scope.user = null;
+      }else{
+        $scope.user = user;
       }
     })
   });
@@ -137,7 +160,7 @@ angular.module('starter.controllers', [])
 
   $scope.init = function(){
     var user = window.localStorage.getItem('mandarina_user');
-    $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/customer.php?id='+user).then(function(res){
+    $http.get('http://localhost/atg_calzadoMandarina/json/customer.php?id='+user).then(function(res){
       $scope.customer = res.data;
       console.log(res.data);
     })
@@ -160,7 +183,7 @@ angular.module('starter.controllers', [])
 
   $scope.init = function(){
     var user = window.localStorage.getItem('mandarina_user');
-    $http.get('https://homodont-route.000webhostapp.com/calzadomandarin/json/favs.php?user='+user).then(function(res){
+    $http.get('http://localhost/atg_calzadoMandarina/json/favs.php?user='+user).then(function(res){
       $scope.favs = res.data;
       console.log(res.data);
     })
@@ -168,6 +191,10 @@ angular.module('starter.controllers', [])
 
   $scope.show = function(id){
     location.assign('#/tab/user/fav/'+id);
+  }
+
+  $scope.delete = function(id){
+    $http.get('http://localhost/atg_calzadoMandarina/php/favs_delete.php?id='+id).then($scope.init());
   }
 
   $scope.init();

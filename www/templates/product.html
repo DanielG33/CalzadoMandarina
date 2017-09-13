@@ -10,7 +10,8 @@
       <div class="item item-button-left item-button-right text-center" href="#" style="position: relative; overflow: visible;">
         <button id="windowUrl" ng-click="testmethod()" class="button button-positive button-round ion-ios-cart" style="position: absolute; top: -50%"></button>
         <span class="energized">{{product.name}}</span>
-        <button class="button button-assertive button-round ion-ios-heart-outline" style="position: absolute; top: -50%"></button>
+        <button class="button button-assertive button-round ion-ios-heart-outline" style="position: absolute; top: -50%" ng-if="fav == 0" ng-click="favs_add();"></button>
+        <button class="button button-assertive button-round ion-ios-heart" style="position: absolute; top: -50%" ng-if="fav == 1" ng-click="favs_delete();"></button>
       </div>
       
       <div class="item item-text-wrap" ng-if="product.description">
